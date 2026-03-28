@@ -31,22 +31,22 @@ func LoadFile(path string) (*ExecutionLog, error) {
 	return Load(f)
 }
 
-// Load parses an execution log from a reader.
+// Load parses an execution log from a reader, allowing unknown fields
+// for compatibility with real-world logs that may contain extra data.
 func Load(r io.Reader) (*ExecutionLog, error) {
 	var log ExecutionLog
 	dec := json.NewDecoder(r)
-	dec.DisallowUnknownFields()
 	if err := dec.Decode(&log); err != nil {
-		// Retry without DisallowUnknownFields for flexibility
 		return nil, fmt.Errorf("parse execution log: %w", err)
 	}
 	return &log, nil
 }
 
-// LoadFlexible parses an execution log, allowing unknown fields.
-func LoadFlexible(r io.Reader) (*ExecutionLog, error) {
+// LoadStrict parses an execution log, rejecting unknown fields.
+func LoadStrict(r io.Reader) (*ExecutionLog, error) {
 	var log ExecutionLog
 	dec := json.NewDecoder(r)
+	dec.DisallowUnknownFields()
 	if err := dec.Decode(&log); err != nil {
 		return nil, fmt.Errorf("parse execution log: %w", err)
 	}

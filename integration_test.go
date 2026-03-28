@@ -207,7 +207,10 @@ expect:
 		logs[i] = l
 	}
 
-	result := runner.RunParallel(specs, paths, logs, 3)
+	result, err := runner.RunParallel(specs, paths, logs, 3)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != n {
 		t.Errorf("passed = %d, want %d", result.TotalPassed, n)
 	}

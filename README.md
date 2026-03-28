@@ -1,4 +1,4 @@
-[![Go](https://img.shields.io/badge/Go-1.22+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
+[![Go](https://img.shields.io/badge/Go-1.26+-00ADD8?style=for-the-badge&logo=go&logoColor=white)](https://go.dev)
 [![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)](LICENSE)
 [![Tests](https://img.shields.io/badge/Tests-134-blue?style=for-the-badge)](https://github.com/JSLEEKR/agentspec)
 [![Platform](https://img.shields.io/badge/Platform-Cross--platform-lightgrey?style=for-the-badge)]()
@@ -80,7 +80,7 @@ agentspec run specs/
 Output:
 
 ```
-agentspec -- Agent Behavior Testing
+agentspec — Agent Behavior Testing
 ===================================
 
 specs/file-reader.yaml
@@ -284,7 +284,7 @@ agentspec version
 ### Table (default)
 
 ```
-agentspec -- Agent Behavior Testing
+agentspec — Agent Behavior Testing
 ===================================
 
 specs/file-reader.yaml
@@ -306,10 +306,10 @@ Results: 5 passed, 1 failed (2 specs)
 ```json
 {
   "summary": {
-    "total": 6,
+    "total": 2,
     "passed": 1,
     "failed": 1,
-    "specs": 2
+    "checks": 6
   },
   "specs": [
     {

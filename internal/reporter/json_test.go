@@ -102,8 +102,8 @@ func TestFormatJSON_MultipleSpecs(t *testing.T) {
 		t.Fatalf("invalid JSON: %v", err)
 	}
 
-	if report.Summary.Specs != 2 {
-		t.Errorf("specs = %d, want 2", report.Summary.Specs)
+	if report.Summary.Total != 2 {
+		t.Errorf("total specs = %d, want 2", report.Summary.Total)
 	}
 }
 

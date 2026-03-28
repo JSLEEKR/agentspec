@@ -1,6 +1,7 @@
 package runner
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/JSLEEKR/agentspec/internal/loader"
@@ -8,7 +9,10 @@ import (
 )
 
 // RunParallel executes specs in parallel with the given concurrency limit.
-func RunParallel(specs []*spec.Spec, paths []string, logs []*loader.ExecutionLog, workers int) *RunResult {
+func RunParallel(specs []*spec.Spec, paths []string, logs []*loader.ExecutionLog, workers int) (*RunResult, error) {
+	if len(specs) != len(logs) {
+		return nil, fmt.Errorf("spec count (%d) does not match log count (%d)", len(specs), len(logs))
+	}
 	if workers <= 0 {
 		workers = 1
 	}
@@ -54,5 +58,5 @@ func RunParallel(specs []*spec.Spec, paths []string, logs []*loader.ExecutionLog
 		}
 	}
 
-	return rr
+	return rr, nil
 }

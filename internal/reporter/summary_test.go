@@ -18,8 +18,8 @@ func TestBuildSummary_Basic(t *testing.T) {
 	}
 
 	s := BuildSummary(rr)
-	if s.Total != 3 {
-		t.Errorf("total = %d, want 3", s.Total)
+	if s.Total != 2 {
+		t.Errorf("total = %d, want 2", s.Total)
 	}
 	if s.Passed != 1 {
 		t.Errorf("passed = %d, want 1", s.Passed)
@@ -27,15 +27,15 @@ func TestBuildSummary_Basic(t *testing.T) {
 	if s.Failed != 1 {
 		t.Errorf("failed = %d, want 1", s.Failed)
 	}
-	if s.Specs != 2 {
-		t.Errorf("specs = %d, want 2", s.Specs)
+	if s.Checks != 3 {
+		t.Errorf("checks = %d, want 3", s.Checks)
 	}
 }
 
 func TestBuildSummary_Empty(t *testing.T) {
 	rr := &runner.RunResult{}
 	s := BuildSummary(rr)
-	if s.Total != 0 || s.Passed != 0 || s.Failed != 0 || s.Specs != 0 {
+	if s.Total != 0 || s.Passed != 0 || s.Failed != 0 || s.Checks != 0 {
 		t.Errorf("expected all zeros: %+v", s)
 	}
 }

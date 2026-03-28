@@ -49,7 +49,7 @@ func Parse(r io.Reader) (*Spec, error) {
 	return &s, nil
 }
 
-// ParseDir parses all YAML spec files in a directory.
+// ParseDir parses all YAML spec files in a directory (top-level only, non-recursive).
 func ParseDir(dir string) ([]*Spec, []string, error) {
 	entries, err := os.ReadDir(dir)
 	if err != nil {

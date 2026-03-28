@@ -93,12 +93,12 @@ func validateResponse(r *Response) string {
 }
 
 func validateConstraint(idx int, c Constraint) string {
-	hasField := c.NoTool != "" || c.MaxTools > 0 || c.Ordered
-	if !hasField {
-		return fmt.Sprintf("expect.constraints[%d] has no valid constraint field", idx)
-	}
 	if c.MaxTools < 0 {
 		return fmt.Sprintf("expect.constraints[%d].max_tools must be positive", idx)
+	}
+	hasField := c.NoTool != "" || c.MaxTools != 0 || c.Ordered
+	if !hasField {
+		return fmt.Sprintf("expect.constraints[%d] has no valid constraint field", idx)
 	}
 	return ""
 }

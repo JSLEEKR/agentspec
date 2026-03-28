@@ -120,7 +120,10 @@ func runSpecs(specPath, logPath, format string, parallel int) error {
 	// Run specs
 	var result *runner.RunResult
 	if parallel > 1 {
-		result = runner.RunParallel(specs, paths, logs, parallel)
+		result, err = runner.RunParallel(specs, paths, logs, parallel)
+		if err != nil {
+			return err
+		}
 	} else {
 		result, err = runner.RunAll(specs, paths, logs)
 		if err != nil {
@@ -139,7 +142,7 @@ func runSpecs(specPath, logPath, format string, parallel int) error {
 	}
 
 	if result.TotalFailed > 0 {
-		os.Exit(1)
+		return fmt.Errorf("%d spec(s) failed", result.TotalFailed)
 	}
 	return nil
 }
@@ -233,7 +236,7 @@ func validateSpecs(path string) error {
 	fmt.Printf("\n%d/%d specs valid\n", valid, len(specs))
 
 	if valid < len(specs) {
-		os.Exit(1)
+		return fmt.Errorf("%d spec(s) invalid", len(specs)-valid)
 	}
 	return nil
 }

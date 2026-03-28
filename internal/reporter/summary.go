@@ -7,19 +7,20 @@ type Summary struct {
 	Total  int `json:"total"`
 	Passed int `json:"passed"`
 	Failed int `json:"failed"`
-	Specs  int `json:"specs"`
+	Checks int `json:"checks"`
 }
 
 // BuildSummary creates a summary from run results.
+// Total, Passed, and Failed all count specs. Checks counts individual checks.
 func BuildSummary(rr *runner.RunResult) Summary {
-	total := 0
+	checks := 0
 	for _, sr := range rr.Specs {
-		total += len(sr.Checks)
+		checks += len(sr.Checks)
 	}
 	return Summary{
-		Total:  total,
+		Total:  len(rr.Specs),
 		Passed: rr.TotalPassed,
 		Failed: rr.TotalFailed,
-		Specs:  len(rr.Specs),
+		Checks: checks,
 	}
 }

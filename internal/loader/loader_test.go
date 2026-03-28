@@ -84,14 +84,14 @@ func TestLoad_NoToolCalls(t *testing.T) {
 	}
 }
 
-func TestLoadFlexible_ExtraFields(t *testing.T) {
+func TestLoad_ExtraFields(t *testing.T) {
 	json := `{
 		"input": "test",
 		"tool_calls": [],
 		"response": "ok",
 		"extra_field": "should be ignored"
 	}`
-	log, err := LoadFlexible(strings.NewReader(json))
+	log, err := Load(strings.NewReader(json))
 	if err != nil {
 		t.Fatalf("unexpected error: %v", err)
 	}
@@ -100,14 +100,14 @@ func TestLoadFlexible_ExtraFields(t *testing.T) {
 	}
 }
 
-func TestLoad_StrictRejectsExtraFields(t *testing.T) {
+func TestLoadStrict_RejectsExtraFields(t *testing.T) {
 	json := `{
 		"input": "test",
 		"tool_calls": [],
 		"response": "ok",
 		"extra": "bad"
 	}`
-	_, err := Load(strings.NewReader(json))
+	_, err := LoadStrict(strings.NewReader(json))
 	if err == nil {
 		t.Error("expected error for extra fields in strict mode")
 	}

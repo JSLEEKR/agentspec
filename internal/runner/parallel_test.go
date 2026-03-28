@@ -18,7 +18,10 @@ func TestRunParallel_AllPass(t *testing.T) {
 		logs[i] = makeLog([]loader.ToolCall{{Name: "tool", Arguments: map[string]interface{}{}}}, "")
 	}
 
-	result := RunParallel(specs, paths, logs, 4)
+	result, err := RunParallel(specs, paths, logs, 4)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != n {
 		t.Errorf("passed = %d, want %d", result.TotalPassed, n)
 	}
@@ -40,7 +43,10 @@ func TestRunParallel_Mixed(t *testing.T) {
 		makeLog([]loader.ToolCall{{Name: "t", Arguments: map[string]interface{}{}}}, ""),
 	}
 
-	result := RunParallel(specs, paths, logs, 2)
+	result, err := RunParallel(specs, paths, logs, 2)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != 2 {
 		t.Errorf("passed = %d, want 2", result.TotalPassed)
 	}
@@ -57,7 +63,10 @@ func TestRunParallel_SingleWorker(t *testing.T) {
 		makeLog([]loader.ToolCall{{Name: "t", Arguments: map[string]interface{}{}}}, ""),
 	}
 
-	result := RunParallel(specs, nil, logs, 1)
+	result, err := RunParallel(specs, nil, logs, 1)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != 1 {
 		t.Errorf("passed = %d, want 1", result.TotalPassed)
 	}
@@ -72,7 +81,10 @@ func TestRunParallel_ZeroWorkers(t *testing.T) {
 	}
 
 	// 0 workers should default to 1
-	result := RunParallel(specs, nil, logs, 0)
+	result, err := RunParallel(specs, nil, logs, 0)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != 1 {
 		t.Errorf("passed = %d, want 1", result.TotalPassed)
 	}
@@ -86,7 +98,10 @@ func TestRunParallel_MoreWorkersThanSpecs(t *testing.T) {
 		makeLog([]loader.ToolCall{{Name: "t", Arguments: map[string]interface{}{}}}, ""),
 	}
 
-	result := RunParallel(specs, nil, logs, 100)
+	result, err := RunParallel(specs, nil, logs, 100)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	if result.TotalPassed != 1 {
 		t.Errorf("passed = %d, want 1", result.TotalPassed)
 	}
@@ -107,7 +122,10 @@ func TestRunParallel_PreservesOrder(t *testing.T) {
 		logs[i] = makeLog([]loader.ToolCall{{Name: "t", Arguments: map[string]interface{}{}}}, "")
 	}
 
-	result := RunParallel(specs, nil, logs, 3)
+	result, err := RunParallel(specs, nil, logs, 3)
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
 	for i, sr := range result.Specs {
 		if i%2 == 0 {
 			if !sr.Passed {
