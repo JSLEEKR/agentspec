@@ -1,0 +1,9 @@
+{
+  "name": "agentspec",
+  "description": "Behavioral testing for AI agents — YAML specs for tool calls and sequences",
+  "version": "1.0.0",
+  "author": { "name": "JSLEEKR" },
+  "repository": "https://github.com/JSLEEKR/agentspec",
+  "license": "MIT",
+  "keywords": ["agent-testing", "yaml", "behavioral-testing", "mcp", "tool-calls"]
+}
